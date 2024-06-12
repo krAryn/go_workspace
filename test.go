@@ -10,7 +10,7 @@ type Rect struct {
 	breadth int
 }
 
-func (rec Rect) Operate(name string, op func() int) string {
+func (rec *Rect) Operate(name string, op func() int) string {
 	result := op()
 	return fmt.Sprintf("The %s of the Rectangle is: %v", name, result)
 } 
