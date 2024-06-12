@@ -1,9 +1,9 @@
 .DEFAULT_GOAL := run
 
 fmt:
-	go fmt ./pattern_programming/test.go
+	go fmt test.go
 .PHONY: fmt
 
 run: fmt
-	go run ./pattern_programming/test.go
+	go run test.go
 .PHONY: run
