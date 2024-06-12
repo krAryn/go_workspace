@@ -10,12 +10,9 @@ type Rect struct {
 	breadth int
 }
 
-func (rec Rect) Perimeter() string {
-	return fmt.Sprintf("The perimeter of the Rectangle is: 2(l + b) = %.3v\n", 2 * (rec.length + rec.breadth))
-}
-
-func (rec Rect) Area() string {
-	return fmt.Sprintf("The area of the Rectangle is: l x b = %.3v\n", rec.length * rec.breadth)
+func (rec Rect) Operate(name string, op func() int) string {
+	result := op()
+	return fmt.Sprintf("The %s of the Rectangle is: %v", name, result)
 } 
 
 func main() {
@@ -27,5 +24,9 @@ func main() {
 	b, _ := strconv.Atoi(os.Args[2])
 	
 	obj := Rect{length: l, breadth: b,}
-	fmt.Println(obj.Perimeter())
+	st := obj.Operate("Area", func() int {
+		return (obj.length * obj.breadth)
+	})
+
+	fmt.Println(st)
 } 
