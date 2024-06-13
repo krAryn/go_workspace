@@ -27,6 +27,8 @@ func main() {
 		Student {Name: "Meera", Class: "9", Roll: "31", Marks: 96.1},
 		Student {Name: "Ravi", Class: "9", Roll: "32", Marks: 89.3},
 	}
+	
+	fmt.Printf("%T: %v\n**********************************************************\n\n", students, students)
 
 	var writer strings.Builder
 	
@@ -34,4 +36,15 @@ func main() {
 	encoder.Encode(students)
 
 	fmt.Println(writer.String())
+	
+	fmt.Printf("\n**********************************************************\n\n")
+	
+	students_copy := []Student{}
+	reader := strings.NewReader(writer.String())
+
+	decoder := json.NewDecoder(reader)
+
+	decoder.Decode(&students_copy)
+
+	fmt.Printf("%T: %v\n**********************************************************\n\n", students_copy, students_copy)
 }
