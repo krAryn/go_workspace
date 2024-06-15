@@ -1,18 +1,51 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"bytes"
+	"encoding/json"
+//	"io"
+)
 
-type any interface{}
-
-func test(a interface{}) {
-	another, _ := a.([]int)
-	another[0] = 11
+type Person struct {
+	Name string
+	Age int
 }
 
+var data []byte = []byte(`{"Name": "Emily", "Age": 27}
+			{"Name": "John", "Age": 34}
+			{"Name": "Sophia", "Age": 29}
+			{"Name": "Michael", "Age": 40}
+			{"Name": "Emma", "Age": 25}
+			{"Name": "Daniel", "Age": 31}
+			{"Name": "Olivia", "Age": 23}
+			{"Name": "Liam", "Age": 28}
+			{"Name": "Ava", "Age": 30}
+			{"Name": "James", "Age": 35}`)
+
+var json_data bytes.Buffer
+
 func main() {
-	sli := []int {1,2,3,4}
+	json_data.Write(data)
+	//fmt.Println(json_data.String())
+	
+	decoder := json.NewDecoder(&json_data)
+	decoded_data_slice := make([]Person, 11)
 
-	test(sli)
+	var person Person
 
-	fmt.Println(sli)
+	for {	
+		err := decoder.Decode(&person)
+		if err == io.EOF {
+			break;
+		} else {
+			fmt.Println(err)
+			decoded_data_slice = append(decoded_data_slice, person)
+		}
+	}
+	
+
+//	decoder.Decode(&decoded_data_slice)
+
+	fmt.Println("decode slice: ", decoded_data_slice)
 }
